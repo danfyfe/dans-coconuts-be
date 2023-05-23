@@ -2,9 +2,9 @@ from django.db import models
 
 class Meta_Data(models.Model):
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
-    heading = models.CharField(max_length=200)
-    # image = models.ImageField(null=True)
+    description = models.CharField(max_length=200, null=True, default='')
+    heading = models.CharField(max_length=200, null=True, default='')
+    image = models.ImageField(null=True, default=None)
     
     def __str__(self):
         return self.title
@@ -30,9 +30,9 @@ class Content_Module(models.Model):
     moduleType = models.TextChoices('type', 'text image')
     type = models.CharField(choices=moduleType.choices, default='text', max_length=10)
     position = models.IntegerField(unique=True, default=0)
-    text_content = models.CharField(max_length=1000, null=True)
-    # image_content = models.ImageField(null=True)
-    image_alt = models.CharField(max_length=200, null=True)
+    text_content = models.CharField(max_length=1000, null=True, default=None)
+    image_content = models.ImageField(null=True, default=None)
+    image_alt = models.CharField(max_length=200, null=True, default='')
     
     def __str__(self):
         return str(self.content) + ' > ' + str(self.type)
