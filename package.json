@@ -2,8 +2,9 @@
   "name": "dans-coconuts-be",
   "version": "1.0.0",
   "description": "Backend for Dans coconuts",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
+    "start": "node ./src/index.ts",
     "test": "npm run tests"
   },
   "repository": {
@@ -18,5 +19,8 @@
   "homepage": "https://github.com/danfyfe/dans-coconuts-be#readme",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16"
   }
 }
