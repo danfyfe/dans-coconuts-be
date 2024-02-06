@@ -1,7 +1,7 @@
 {
   "name": "dans-coconuts-be",
   "version": "1.0.0",
-  "description": "Backend for Dans Coconuts",
+  "description": "Backend for Dans Coconuts - Node Express Server",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
