@@ -1,14 +1,16 @@
-import express, { Request, Response } from 'express';
-const express = require( "express" );
-const app = express();
-const port = 8080;
+import express, { Express, Request, Response , Application } from 'express';
+import dotenv from 'dotenv';
 
-// define a route handler for the default home page
-app.get( "/", ( req: Request, res:Response ) => {
-    res.send( "Hello world!" );
-} );
+//For env File 
+dotenv.config();
 
-// start the Express server
-app.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
+const app: Application = express();
+const port = process.env.PORT || 8080;
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Welcome to Express & TypeScript Servers');
+});
+
+app.listen(port, () => {
+  console.log(`Server is Fire at http://localhost:${port}`);
 });
