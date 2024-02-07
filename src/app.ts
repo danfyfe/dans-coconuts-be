@@ -1,10 +1,13 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import { graphqlHTTP } from "express-graphql";
-import { buildSchema } from 'graphql';
+import { GraphQLError, buildSchema } from 'graphql';
+// import Schema from './api/v1/graphql/schemas';
+import Root from './api/v1/graphql/resolvers';
+import mongoose from 'mongoose';
 
 // routes
-import commentsRoute from './api/v1/routes/Comments';
+import blogRoute from './api/v1/routes/Blog';
 
 //For env File 
 dotenv.config();
@@ -12,38 +15,86 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 8080;
 
-// V1
-// // comments
-app.use('/api/v1/comments', commentsRoute);
 
+// V1 ****
+// // Routes
+app.use('/api/v1/blog', blogRoute);
 
-
-// Global
-
-// Construct a schema, using GraphQL schema language
-const schema = buildSchema(`
-  type Query {
-    hello: String
+const Schema = `
+  type MetaData {
+    _id: ID!
+    title: String!
+    description: String!
   }
-`)
 
-// The root provides a resolver function for each API endpoint
-const root = {
-  hello: () => {
-    return "Hello world!"
-  },
-}
+  type Blog {
+    _id: ID!
+    date: String!
+    slug: String!
+    title: String!
+    content: String!
+  }
 
+  input BlogInput {
+    slug: String!
+    title: String!
+    content: String!
+  }
+
+  input MetaDataInput {
+    title: String!
+    description: String!
+  }
+
+
+  type RootQuery {
+    blogs: [Blog!]!
+  }
+
+  type RootMutation {
+    createBlog(blogInput: BlogInput): Blog
+  }
+
+  schema {
+    query: RootQuery
+    mutation: RootMutation
+  }
+`
+
+// // GraphQL
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: schema,
-    rootValue: root,
+    schema:  buildSchema(Schema),
+    rootValue: {
+      blogs: () => {
+
+      },
+      createBlog: () => {
+
+      }
+    },
     graphiql: true,
+    formatError(err): GraphQLError {
+      console.log(err)
+      return err;
+    }
   })
 )
 
+// Middlewares
+app.use(express.json());
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+// DB connection
+mongoose.connect(
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.3y6led3.mongodb.net/?retryWrites=true&w=majority`
+  ).then(() => {
+    console.log('Successfully connected to db.')
+    app.listen(port, () => {
+      console.log(`Server is running at http://localhost:${port}`);
+    });
+  }).catch((error) => {
+    console.log(error)
+  });
+
+// V1 ****

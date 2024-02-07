@@ -8,11 +8,11 @@ const router: Router = express.Router();
 
 router.get("/", (req: Request, res: Response) => {
   console.log('in get')
-  res.send('Hello from all comments GET')
+  res.send('Hello from all blog GET')
 });
 
 router.post("/", (req: Request, res: Response) => {
-  res.send('Hello from all comments POST')
+  res.send('Hello from all blog POST')
 });
 
 export default router;
