@@ -6,8 +6,11 @@ import { GraphQLError, buildSchema } from 'graphql';
 import Root from './api/v1/graphql/resolvers';
 import mongoose from 'mongoose';
 
+import BlogModel from './api/v1/models/blog';
+
 // routes
 import blogRoute from './api/v1/routes/Blog';
+import { BlogArgs } from './api/v1/interfaces/blog';
 
 //For env File 
 dotenv.config();
@@ -70,8 +73,20 @@ app.use(
       blogs: () => {
 
       },
-      createBlog: () => {
-
+      createBlog: (args: BlogArgs) => {
+        const blog = new BlogModel({
+          slug: args.blogInput.slug,
+          title: args.blogInput.title,
+          content: args.blogInput.content,
+          date: new Date()
+        });
+        return blog.save().then((result) => {
+          console.log(result);
+          return result;
+        }).catch((error) => {
+          console.log(error);
+          throw new Error(error);
+        })
       }
     },
     graphiql: true,
