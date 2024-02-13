@@ -1,11 +1,11 @@
-const BlogSchemas = `
+const PostSchemas = `
   type MetaData {
     _id: ID!
     title: String!
     description: String!
   }
 
-  type Blog {
+  type Post {
     _id: ID!
     date: String!
     slug: String!
@@ -14,8 +14,8 @@ const BlogSchemas = `
   }
 `;
 
-const BlogInputs = `
-  input  BlogInput {
+const PostInputs = `
+  input  PostInput {
     slug: String!
     title: String!
     content: String!
@@ -27,18 +27,18 @@ const BlogInputs = `
   }
 `;
 
-const BlogQueries = `
-  blogs: [Blog!]!
+const PostQueries = `
+  posts: [Post!]!
 `;
 
-const BlogMutations = `
-  createBlog(blogInput: BlogInput): Blog
+const PostMutations = `
+  createPost(postInput: PostInput): Post
 `;
 
 
 export { 
-  BlogSchemas,
-  BlogInputs,
-  BlogQueries,
-  BlogMutations
+  PostSchemas,
+  PostInputs,
+  PostQueries,
+  PostMutations
 };

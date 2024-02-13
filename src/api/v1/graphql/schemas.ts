@@ -1,18 +1,18 @@
 import { buildSchema } from "graphql";
-import { BlogSchemas, BlogInputs, BlogQueries, BlogMutations } from "./schemas/blog";
+import { PostSchemas, PostInputs, PostQueries, PostMutations } from "./schemas/post";
 
 // combine all schemas for use in app.ts in root
 const schema = buildSchema(`
-  ${BlogSchemas}
+  ${PostSchemas}
 
-  ${BlogInputs}
+  ${PostInputs}
 
   type RootQuery {
-    ${BlogQueries}
+    ${PostQueries}
   }
 
   type RootMutation {
-    ${BlogMutations}
+    ${PostMutations}
   }
 
   schema {

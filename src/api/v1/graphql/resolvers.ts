@@ -1,20 +1,20 @@
 // Models
-import BlogModel from "../models/blog";
+import PostModel from "../models/post";
 
 // Interfaces
-import { BlogArgs } from "../interfaces/blog";
+import { PostArgs } from "../interfaces/post";
 // spread together resolvers for use in app.ts in root
 const resolvers = {
-  blogs: () => {
+  post: () => {
     return [
       { _id: 1, title: 'Hi', slug: 'hi', content: 'hi'}
     ]
   },
-  createBlog: (args: BlogArgs) => {
-    const blog = new BlogModel({
-      slug: args.blogInput.slug,
-      title: args.blogInput.title,
-      content: args.blogInput.content
+  createPost: (args: PostArgs) => {
+    const post = new PostModel({
+      slug: args.postInput.slug,
+      title: args.postInput.title,
+      content: args.postInput.content
     })
   }
 };

@@ -11,7 +11,7 @@ import { Schema } from "mongoose";
  * 
  */
 
-const blogSchema = new Schema({
+const postSchema = new Schema({
   slug: {
     type: String,
     required: true
@@ -30,6 +30,6 @@ const blogSchema = new Schema({
   }
 });
 
-const BlogModel = mongoose.model('Blog', blogSchema);
+const PostModel = mongoose.model('Post', postSchema);
 
-export default BlogModel;
+export default PostModel;

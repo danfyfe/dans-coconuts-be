@@ -6,11 +6,11 @@ import { GraphQLError, buildSchema } from 'graphql';
 import Root from './api/v1/graphql/resolvers';
 import mongoose from 'mongoose';
 
-import BlogModel from './api/v1/models/blog';
+import PostModel from './api/v1/models/post';
 
 // routes
-import blogRoute from './api/v1/routes/Blog';
-import { BlogArgs } from './api/v1/interfaces/blog';
+import postRoute from './api/v1/routes/Post';
+import { PostArgs } from './api/v1/interfaces/post';
 
 //For env File 
 dotenv.config();
@@ -21,7 +21,7 @@ const port = process.env.PORT || 8080;
 
 // V1 ****
 // // Routes
-app.use('/api/v1/blog', blogRoute);
+app.use('/api/v1/post', postRoute);
 
 const Schema = `
   type MetaData {
@@ -30,7 +30,7 @@ const Schema = `
     description: String!
   }
 
-  type Blog {
+  type Post {
     _id: ID!
     date: String!
     slug: String!
@@ -38,7 +38,7 @@ const Schema = `
     content: String!
   }
 
-  input BlogInput {
+  input PostInput {
     slug: String!
     title: String!
     content: String!
@@ -51,11 +51,11 @@ const Schema = `
 
 
   type RootQuery {
-    blogs: [Blog!]!
+    posts: [Post!]!
   }
 
   type RootMutation {
-    createBlog(blogInput: BlogInput): Blog
+    createPost(postInput: PostInput): Post
   }
 
   schema {
@@ -70,17 +70,17 @@ app.use(
   graphqlHTTP({
     schema:  buildSchema(Schema),
     rootValue: {
-      blogs: () => {
+      posts: () => {
 
       },
-      createBlog: (args: BlogArgs) => {
-        const blog = new BlogModel({
-          slug: args.blogInput.slug,
-          title: args.blogInput.title,
-          content: args.blogInput.content,
+      createPost: (args: PostArgs) => {
+        const post = new PostModel({
+          slug: args.postInput.slug,
+          title: args.postInput.title,
+          content: args.postInput.content,
           date: new Date()
         });
-        return blog.save().then((result) => {
+        return post.save().then((result) => {
           console.log(result);
           return result;
         }).catch((error) => {
