@@ -10,7 +10,7 @@ import PostModel from './api/v1/models/post';
 
 // routes
 import postRoute from './api/v1/routes/Post';
-import { PostArgs } from './api/v1/interfaces/post';
+import { PostArgs } from './api/v1/interfaces/post/index';
 
 //For env File 
 dotenv.config();
@@ -80,10 +80,10 @@ app.use(
           content: args.postInput.content,
           date: new Date()
         });
-        return post.save().then((result) => {
+        return post.save().then((result: any) => {
           console.log(result);
           return result;
-        }).catch((error) => {
+        }).catch((error: string | undefined) => {
           console.log(error);
           throw new Error(error);
         })
