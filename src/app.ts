@@ -21,7 +21,7 @@ const port = process.env.PORT || 8080;
 
 // V1 ****
 // // Routes
-app.use('/api/v1/post', postRoute);
+app.use('/api/v1/posts', postRoute);
 
 const Schema = `
   type MetaData {
