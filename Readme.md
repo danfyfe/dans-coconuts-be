@@ -1,2 +1,0 @@
-### Overview
-This is the repo for the backend of [danscoconuts.com](https://www.danscoconuts.com). It is a work in progress, but will be the basis of learning and experimenting with different backend frameworks and languages.
