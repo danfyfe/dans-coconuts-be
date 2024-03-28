@@ -10,6 +10,6 @@ export class UserController {
   async createUser(@Body() createUserDto: CreateUserDto): Promise<any> {
     console.log(createUserDto);
     const user = await this.userService.createUser(createUserDto);
-    return 'createUser';
+    return user;
   }
 }
