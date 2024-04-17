@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './user/user.controller';
-import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PostsModule } from './v1/posts/posts.module';
 
 @Module({
   imports: [
-    UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -19,8 +17,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         uri: config.get<string>('MONGODB_URI'),
       }),
     }),
+    PostsModule,
   ],
   providers: [AppService],
-  controllers: [AppController, UserController],
+  controllers: [AppController],
 })
 export class AppModule {}
