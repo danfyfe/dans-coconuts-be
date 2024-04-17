@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { CreatePostDto } from '../dto/create-post.dto';
+import { UpdatePostDto } from '../dto/update-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -19,17 +21,17 @@ export class PostsService {
     return this.posts.find((p) => p.id === id);
   }
 
-  create(post: { slug: string }) {
+  create(createPostDto: CreatePostDto) {
     const highestId = [...this.posts].sort((a, b) => b.id - a.id)[0].id;
-    const newPost = { id: highestId + 1, ...post };
+    const newPost = { id: highestId + 1, ...createPostDto };
     this.posts.push(newPost);
     return newPost;
   }
 
-  update(id: number, updatedPost: { slug?: string }) {
+  update(id: number, updatePostDto: UpdatePostDto) {
     this.posts = this.posts.map((post) => {
       if (post.id === id) {
-        const updated = { ...post, ...updatedPost };
+        const updated = { ...post, ...updatePostDto };
         return updated;
       }
       return post;
