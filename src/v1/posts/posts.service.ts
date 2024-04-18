@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 
@@ -14,11 +14,15 @@ export class PostsService {
   }
 
   findBySlug(slug: string) {
-    return this.posts.find((p) => p.slug === slug);
+    const post = this.posts.find((p) => p.slug === slug);
+    if (!post) return new NotFoundException();
+    return post;
   }
 
   findById(id: number) {
-    return this.posts.find((p) => p.id === id);
+    const post = this.posts.find((p) => p.id === id);
+    if (!post) return new NotFoundException();
+    return post;
   }
 
   create(createPostDto: CreatePostDto) {
